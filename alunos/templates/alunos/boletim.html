@@ -1,0 +1,25 @@
+{% extends 'alunos/base.html' %}
+{% block content %}
+    <h2>Boletim - {{ aluno.nome }}</h2>
+    <p>Matrícula: {{ aluno.matricula }}</p>
+    <table border="1" cellpadding="4">
+        <tr>
+            <th>Disciplina</th>
+            <th>Nota</th>
+            <th>Data</th>
+        </tr><th>Disciplina</th>
+        {% for n in notas %}
+        <tr>
+            <td>{{ n.disciplina.nome }}</td>
+            <td>{{ n.valor }}</td>
+            <td>{{ n.data }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Sem notas lançadas.</td></tr>
+        {% endfor %}
+    </table>
+
+    {% if media is not None %}
+    <p> Média geral: {{ media|floatformat:2 }} </p>
+  {% endif %}
+{% endblock %}
