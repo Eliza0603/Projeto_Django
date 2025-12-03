@@ -1,9 +1,50 @@
 {% extends 'alunos/base.html' %}
+
 {% block content %}
-    <h2> Cadastrar Aluno </h2>
-   <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-   </form>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">📝 Cadastrar Aluno</h3>
+            </div>
+
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <!-- Renderiza automaticamente com Bootstrap -->
+                    {{ form.as_p }}
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success">
+                            💾 Salvar
+                        </button>
+                        <a href="{% url 'alunos:aluno_list' %}" class="btn btn-secondary">
+                            ↩️ Voltar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Adiciona este script para melhorar o form -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Adiciona classes Bootstrap automaticamente
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        if (!input.className.includes('form-control')) {
+            input.classList.add('form-control', 'mb-3');
+        }
+    });
+
+    // Adiciona labels
+    const labels = document.querySelectorAll('label');
+    labels.forEach(label => {
+        label.classList.add('form-label', 'fw-bold');
+    });
+});
+</script>
 {% endblock %}
