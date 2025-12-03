@@ -76,3 +76,8 @@ def boletim(request, aluno_id):
     valores = [float(n.valor) for n in notas]
     media = sum(valores)/len(valores) if valores else None
     return render(request, 'alunos/boletim.html', {'aluno': aluno, 'notas': notas, 'media': media})
+
+@login_required
+def disciplina_list(request):
+    disciplinas = Disciplina.objects.all().order_by('nome')
+    return render(request, 'alunos/disciplina_list.html', {'disciplinas': disciplinas})
