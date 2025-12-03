@@ -10,18 +10,18 @@ class Aluno(models.Model):
     def __str__(self):
         return f"{self.nome} ({self.matricula})"
 
-    class Disciplina(models.Model):
-        nome = models.CharField(max_length=150, unique=True)
+class Disciplina(models.Model):
+    nome = models.CharField(max_length=150, unique=True)
 
-        def __str__(self):
-            return self.nome
+    def __str__(self):
+        return self.nome
 
-    class Nota(models.Model):
-        aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, related_name='notas')
-        disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
-        valor = models.DecimalField(max_digits=5, decimal_places=2)
-        data = models.DateField(auto_now_add=True)
-        lancado_por = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+class Nota(models.Model):
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, related_name='notas')
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    data = models.DateField(auto_now_add=True)
+    lancado_por = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         unique_together = ('aluno', 'disciplina')

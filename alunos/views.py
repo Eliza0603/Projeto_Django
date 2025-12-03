@@ -16,6 +16,7 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = UserRegisterSerializer
 
+#API VIEWSETS
 class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.all().order_by('-criado_em')
     serializer_class = AlunoSerializer
@@ -50,9 +51,23 @@ def aluno_create(request):
         if form.is_valid():
             form.save()
             return redirect('alunos:aluno_list')
-        else:
-            form = AlunoForm()
-        return render(request, 'alunos/aluno_form.html', {'form': form})
+    else:
+        form = AlunoForm()
+    return render(request, 'alunos/aluno_form.html', {'form': form})
+
+
+@login_required
+def lancar_nota(request):
+    if request.method == 'POST':
+        form = NotaForm(request.POST)
+        if form.is_valid():
+            nota = form.save(commit=False)
+            nota.lancado_por = request.user
+            nota.save()
+            return redirect('alunos:aluno_list')
+    else:
+        form = NotaForm()
+    return render(request, 'alunos/lancar_nota.html', {'form': form})
 
 @login_required
 def boletim(request, aluno_id):

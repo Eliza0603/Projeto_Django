@@ -16,7 +16,7 @@ urlpatterns = [
     path('alunos/', views.aluno_list, name='aluno_list'),
     path('alunos/novo/', views.aluno_create, name='aluno_create'),
     path('notas/lancar/', views.lancar_nota, name='lancar_nota'),
-    path('notas/lancar/', views.lancar_nota, name='lancar_nota'),
+    path('alunos/<int:aluno_id>/boletim/', views.boletim, name='boletim'),
 
     #API
     path('api/register/', RegisterView.as_view(), name='register'),
