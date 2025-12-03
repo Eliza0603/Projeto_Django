@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sistema de Alunos</title>
+</head>
+<body>
+    <header>
+    <h1>Sistema de Cadastro de Alunos e Notas</h1>
+    <nav>
+        <a href="{% url 'alunos:home' %}">Home</a> |
+        <a href="{% url 'alunos:aluno_list' %}">Alunos</a> |
+        <a href="{% url 'alunos:aluno_create' %}">Cadastrar Aluno</a> |
+        <a href="{% url 'alunos:lancar_nota' %}">Lançar Nota</a> |
+        {% if request.user.is_authenticated %}
+             <span>Olá, {{ request.user.username }} | <a href="/admin/logout/">Sair</a></span>
+        {% else %}
+            <a href="/admin/login/">Login</a>
+        {% endif %}
+    </nav>
+    <hr>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
